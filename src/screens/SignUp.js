@@ -114,6 +114,7 @@ const More = styled.div`
   a {
     text-decoration: none;
     color: #283593;
+  }
 `;
 const Button = styled.button`
   padding: 8px 0;

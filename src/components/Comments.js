@@ -28,20 +28,20 @@ const CommentAuthorImg = styled.img`
 `;
 const CommentContent = styled.span``;
 
-function Comments({ author, caption, comments, commentNumber }) {
+function Comments({ user, caption, comments, reviewsNum }) {
   return (
     <CommentsContainer>
       <CommentContainer>
-        <CommentAuthor>{author}</CommentAuthor>
+        <CommentAuthor>{user}</CommentAuthor>
         <CommentContent>{caption}</CommentContent>
       </CommentContainer>
-      <CommentCount>댓글 {commentNumber}개 모두 보기</CommentCount>
+      <CommentCount>댓글 {reviewsNum}개 모두 보기</CommentCount>
 
       {comments?.map((comment) => (
         <CommentContainer>
           <CommentAuthorImg src={comment.user.profileImg} />
           <CommentAuthor>{comment.user.username}</CommentAuthor>
-          <CommentContent>{comment.payload}</CommentContent>
+          <CommentContent>{comment.caption}</CommentContent>
         </CommentContainer>
       ))}
     </CommentsContainer>

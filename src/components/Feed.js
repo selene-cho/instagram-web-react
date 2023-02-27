@@ -69,12 +69,12 @@ const Likes = styled.span`
 
 function Feed({
   id,
-  file,
+  contentImg,
   caption,
   user,
-  likes,
-  commentNumber,
-  comments,
+  likesNum,
+  reviewsNum,
+  reviews,
   isLiked,
 }) {
   return (
@@ -83,7 +83,7 @@ function Feed({
         <Avatar src={user.profileImg} />
         <Nickname>{user.username}</Nickname>
       </FeedHeader>
-      <FeedPhoto src={file} />
+      <FeedPhoto src={contentImg} />
 
       <FeedActionContainer>
         <FeedWrapper>
@@ -106,13 +106,13 @@ function Feed({
             <FontAwesomeIcon icon={faBookmark} />
           </div>
         </FeedWrapper>
-        <Likes>{likes} likes</Likes>
+        <Likes>{likesNum} likes</Likes>
         <Comments
           key={id}
           author={user.username} // 작성자
-          caption={caption} // feesd 내용
-          comments={comments} // 댓글들 (댓글 작성자, 댓글내용)
-          commentNumber={commentNumber} // 댓글 갯수
+          caption={caption} // feeds 내용
+          comments={reviews} // 댓글들 (댓글 작성자, 댓글내용)
+          commentNumber={reviewsNum} // 댓글 갯수
         />
       </FeedActionContainer>
     </FeedContainer>

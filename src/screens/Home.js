@@ -4,7 +4,7 @@ import { getAllFeeds } from "../api";
 
 function Home() {
   const { data } = useQuery(["feeds"], getAllFeeds);
-  console.log(data);
+  console.log("data", data);
   // const data = [
   //   // feed 여러개니까 [] list에 담아줌
   //   {
@@ -77,6 +77,7 @@ function Home() {
   //     isLiked: true,
   //   },
   // ];
+
   return (
     <div>
       {data?.map((feed) => (

@@ -49,19 +49,19 @@ function Header() {
             <Icon>
               <Link to="/">
                 <FontAwesomeIcon
-                  size={"lg"}
+                  size="lg"
                   icon={faHome}
                   style={{ color: "black" }}
                 />
               </Link>
             </Icon>
             <Icon>
-              <FontAwesomeIcon size={"lg"} icon={faPaperPlane} />
+              <FontAwesomeIcon size="lg" icon={faPaperPlane} />
             </Icon>
             <Icon>
-              <Link to="/profile">
+              <Link to="/profile/dahee">
                 <FontAwesomeIcon
-                  size={"lg"}
+                  size="lg"
                   icon={faUser}
                   style={{ color: "black" }}
                 />
