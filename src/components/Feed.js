@@ -10,6 +10,7 @@ import { faHeart as SolidHeart } from "@fortawesome/free-solid-svg-icons";
 // import Avatar from "../components/Avartar";
 import Comments from "../components/Comments";
 // import Profile from "../screens/Profile";
+import { Link } from "react-router-dom";
 
 const FeedContainer = styled.div`
   display: flex;
@@ -27,8 +28,8 @@ const FeedHeader = styled.div`
   border-bottom: 1px solid rgb(239, 239, 239);
 `;
 const Nickname = styled.div`
-  margin-left: 10px;
   font-weight: 600;
+  font-size: 16px;
 `;
 const Avatar = styled.img`
   width: 60px;
@@ -81,7 +82,12 @@ function Feed({
     <FeedContainer key={id}>
       <FeedHeader>
         <Avatar src={user.profileImg} />
-        <Nickname>{user.username}</Nickname>
+        <Link
+          to={`/profile/${user.username}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <Nickname>{user.username}</Nickname>
+        </Link>
       </FeedHeader>
       <FeedPhoto src={contentImg} />
 

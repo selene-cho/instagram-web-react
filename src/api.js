@@ -8,4 +8,17 @@ const instance = axios.create({
   },
 });
 
-export const getAllFeeds = () => instance.get("feeds/").then((res) => res.data); // res: response 축약형
+//http://127.0.0.1:8000/api/v1/feeds/
+export const getAllFeeds = () => {
+  return instance.get("feeds/").then((res) => res.data);
+}; // res: response 축약형
+
+//http://127.0.0.1:8000/api/v1/feeds/username
+export const getUserFeeds = ({ queryKey }) => {
+  console.log("api-username", queryKey[1]);
+
+  let username = queryKey[1];
+  console.log("api-username", username);
+
+  return instance.get("feeds/" + username).then((res) => res.data);
+};

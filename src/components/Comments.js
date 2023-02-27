@@ -1,10 +1,11 @@
+import { faThumbsUp } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 const CommentsContainer = styled.div`
   max-width: 630px;
   margin-top: 20px;
 `;
 const CommentContainer = styled.div`
-  margin-bottom: 15px;
   display: flex;
   align-items: center;
 `;
@@ -18,7 +19,7 @@ const CommentCount = styled.span`
 `;
 const CommentAuthor = styled.span`
   font-weight: 600;
-  margin-right: 10px;
+  margin: 0 10px;
 `;
 const CommentAuthorImg = styled.img`
   height: 40px;
@@ -27,21 +28,28 @@ const CommentAuthorImg = styled.img`
   margin: 0 5px;
 `;
 const CommentContent = styled.span``;
+const CommentLikes = styled.span`
+  margin: 0 15px;
+`;
 
-function Comments({ user, caption, comments, reviewsNum }) {
+function Comments({ author, caption, comments, commentNumber }) {
   return (
     <CommentsContainer>
       <CommentContainer>
-        <CommentAuthor>{user}</CommentAuthor>
+        <CommentAuthor>{author}</CommentAuthor>
         <CommentContent>{caption}</CommentContent>
       </CommentContainer>
-      <CommentCount>댓글 {reviewsNum}개 모두 보기</CommentCount>
+      <CommentCount>댓글 {commentNumber}개 모두 보기</CommentCount>
 
       {comments?.map((comment) => (
-        <CommentContainer>
+        <CommentContainer key={comment.id}>
           <CommentAuthorImg src={comment.user.profileImg} />
           <CommentAuthor>{comment.user.username}</CommentAuthor>
           <CommentContent>{comment.caption}</CommentContent>
+          <CommentLikes>
+            <FontAwesomeIcon style={{ marginRight: 5 }} icon={faThumbsUp} />
+            {comment.likesNum}개
+          </CommentLikes>
         </CommentContainer>
       ))}
     </CommentsContainer>

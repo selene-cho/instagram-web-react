@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { getUserFeeds } from "../api";
 
 const Header = styled.header`
   max-width: 630px;
@@ -38,13 +41,13 @@ const Contents = styled.div`
   display: grid;
   grid-auto-rows: 290px;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px;
   margin-top: 50px;
 `;
 const Feed = styled.div`
   background-image: url(${(props) => props.bg});
   background-size: cover;
-  background-position: 50% 0%;
+  background-position: center;
   position: relative;
 `;
 const Icons = styled.div`
@@ -71,14 +74,21 @@ const Icon = styled.span`
     margin-right: 5px;
   }
 `;
+
 function Profile() {
+  const { username } = useParams();
+  console.log("username", username);
+
+  const { data } = useQuery(["feeds/", username], getUserFeeds);
+  console.log("data", data);
+
   return (
-    <div>
+    <>
       <Header>
-        <ProfileImg src="https://i.pinimg.com/564x/39/18/dd/3918ddfed723f149733957d5bff24359.jpg" />
+        <ProfileImg src={data ? data[0].user.profileImg : ""} />
         <ProfileInfo>
           <Row>
-            <Username>HEE</Username>
+            <Username>{data ? data[0].user.username : ""}</Username>
             <FollowBtn>&nbsp;팔로우버튼</FollowBtn>
           </Row>
           <Row>
@@ -88,30 +98,28 @@ function Profile() {
             <div>following</div>
           </Row>
           <Row>
-            <div>소개글</div>
+            <div>{data ? data[0].user.profileIntroduce : ""}</div>
           </Row>
         </ProfileInfo>
       </Header>
+
       <Contents>
-        <Feed bg="http://cdn.ksilbo.co.kr/news/photo/202206/938335_532280_3749.jpg">
-          <Icons>
-            <Icon>
-              <FontAwesomeIcon icon={faHeart} />
-              1004
-            </Icon>
-            <Icon>
-              <FontAwesomeIcon icon={faComment} />
-              123
-            </Icon>
-          </Icons>
-        </Feed>
-        <Feed bg="http://image.dongascience.com/Photo/2022/06/6982fdc1054c503af88bdefeeb7c8fa8.jpg" />
-        <Feed bg="https://post-phinf.pstatic.net/MjAyMTA4MDJfODEg/MDAxNjI3ODg4MDY0OTcw.JlG6dn6u55h-OuWpe5MH9tWrieUyXcbrJXtGAqjMX_Ug.kOwoCCvzxo7x3f4qicCnHMMbdkFwmMw5vPEaePxK4BYg.JPEG/%EA%B0%95%EC%95%84%EC%A7%80_%EC%9D%B4%EA%B0%88%EC%9D%B4%EC%8B%9C%EA%B8%B000.jpg?type=w1200" />
-        <Feed bg="https://cdn.eyesmag.com/content/uploads/posts/2022/03/22/main-d3bbc024-549a-4a23-9c08-5cb675d6b028.jpg" />
-        <Feed bg="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/32E9/image/BA2Qyx3O2oTyEOsXe2ZtE8cRqGk.JPG" />
-        <Feed bg="https://cdnweb01.wikitree.co.kr/webdata/editor/202103/02/img_20210302105652_f4642f08.webp" />
+        {data?.map((feed) => (
+          <Feed key={feed.id} bg={feed.contentImg}>
+            <Icons>
+              <Icon>
+                <FontAwesomeIcon icon={faHeart} />
+                {feed.likesNum}
+              </Icon>
+              <Icon>
+                <FontAwesomeIcon icon={faComment} />
+                {feed.reviewsNum}
+              </Icon>
+            </Icons>
+          </Feed>
+        ))}
       </Contents>
-    </div>
+    </>
   );
 }
 
